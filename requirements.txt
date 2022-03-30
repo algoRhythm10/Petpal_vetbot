@@ -1,0 +1,4 @@
+Django==4.0.3
+keras==2.8.0
+nltk==3.7
+numpy==1.22.3
