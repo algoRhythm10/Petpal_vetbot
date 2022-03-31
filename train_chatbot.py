@@ -9,7 +9,7 @@ from nltk.stem import WordNetLemmatizer
 import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Dropout
-from keras.optimizers import sgd_experimental
+from keras.optimizers import gradient_descent_v2
 
 
 lemmatizer = WordNetLemmatizer()
@@ -94,7 +94,7 @@ model.add(Dense(64, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(len(train_y[0]), activation='softmax'))
 
-sgd = sgd_experimental(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+sgd = gradient_descent_v2.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
 
