@@ -6,6 +6,8 @@ lemmatizer = WordNetLemmatizer()
 import pickle
 import numpy as np
 
+import tensorflow as tf
+
 from keras.models import load_model
 model = load_model('chatbot_model.h5')
 import json
@@ -15,7 +17,7 @@ words = pickle.load(open('words.pkl','rb'))
 classes = pickle.load(open('classes.pkl','rb'))
 
 
-def clean_up_sentence(sentence):
+def clean_up_sentence(sentence): 
     # tokenize the pattern - split words into array
     sentence_words = nltk.word_tokenize(sentence)
     # stem each word - create short form for word
@@ -24,7 +26,7 @@ def clean_up_sentence(sentence):
 
 # return bag of words array: 0 or 1 for each word in the bag that exists in the sentence
 
-def bow(sentence):
+def bag_of_words(sentence):
     # tokenize the pattern
     sentence_words = clean_up_sentence(sentence)
     # bag of words - matrix of N words, vocabulary matrix
@@ -38,7 +40,7 @@ def bow(sentence):
 
 def predict_class(sentence, model):
     # filter out predictions below a threshold
-    p = bow(sentence)
+    p = bag_of_words(sentence)
     res = model.predict(np.array([p]))[0]
     ERROR_THRESHOLD = 0.25
     results = [[i,r] for i,r in enumerate(res) if r>ERROR_THRESHOLD]
@@ -49,5 +51,8 @@ def predict_class(sentence, model):
     for r in results:
         return_list.append({"intent": classes[r[0]], "probability": str(r[1])})
     return return_list
+
+
+
 
 
