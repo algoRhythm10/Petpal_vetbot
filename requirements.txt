@@ -2,3 +2,5 @@ Django==4.0.3
 keras==2.8.0
 nltk==3.7
 numpy==1.22.3
+CUDA version 11.2
+Tensorflow version 2.8.0
